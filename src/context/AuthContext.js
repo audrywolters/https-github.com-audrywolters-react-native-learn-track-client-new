@@ -6,7 +6,11 @@ import trackerApi from '../api/tracker'
 // per the action
 const authReducer = (state, action) => {
 	switch (action.type) {
+		case 'add_error':
+			// remake state with a change to errorMessage prop
+			return { ...state, errorMessage: action.payload }
 		default:
+			// reducer must always return an object
 			return state
 	}
 }
@@ -23,6 +27,8 @@ const signup = (dispatch) => {
 			const response = await trackerApi.post('/signup', { email, password })
 			console.log(response.data)
 		} catch (err) {
+			// ask reducer to handle this (via state)
+			dispatch({ type: 'add_error', payload: 'error with Sign Up api call' })
 			console.log(err.response.data)
 		}
 	}
@@ -43,7 +49,12 @@ const signout = (dispatch) => {
 }
 
 export const { Provider, Context } = createDataContext(
+	// reducer
 	authReducer,
+
+	// actions
 	{ signin, signout, signup },
-	{ isSignedIn: false }
+
+	// inital state property
+	{ isSignedIn: false, errorMessage: '' }
 )
