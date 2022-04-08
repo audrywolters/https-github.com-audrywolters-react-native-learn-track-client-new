@@ -10,7 +10,7 @@ const SignupScreen = ({ navigation }) => {
 	const [email, setEmail] = useState('')
 	const [password, setPassword] = useState('')
 
-	// console.log(`Sign up Screen> authContext> state: ${state.errorMessage}`)
+	// console.log(`Sign up Screen-> authContext-> state: ${state.errorMessage}`)
 
 	return (
 		<View style={styles.container}>
